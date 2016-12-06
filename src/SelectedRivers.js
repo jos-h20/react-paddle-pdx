@@ -1,34 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
+import SelectRiverItem from './SelectRiverItem';
+import axios from 'axios';
 
-
-
-const
-SelectedRivers = ({rivers, removeRiver}) => {
-  if (!rivers) {
-    return <div>No rivers selected yet.</div>
+class SelectedRivers extends Component {
+  constructor (props) {
+    super (props);
   }
-  console.log({rivers}, 'selected rivers');
-  const riverItems = rivers.map((river, i) => {
+
+
+ render () {
+
+  const riverItems = this.props.rivers.map((river, i) => {
     return (
-      <li key={river.key} className="list-group-item">
-        <div className="river-list-media">
-          <h5>{river.sourceInfo.siteName}</h5>
-          <h5>CFS: {river.values[0].value[0].value}</h5>
-          <button onClick={() => removeRiver.call(river, i)}>Remove</button>
-        </div>
-      </li>
+      <SelectRiverItem
+        removeRiver={this.props.removeRiver}
+        key={river.name}
+        id={river.sourceInfo.siteCode[0].value}
+        i={i}
+        river={river} />
     );
   });
-  return (
-    <div>
-    <h1>Selected Rivers</h1>
-    <ul className="col-md-4 list-group">
-      {riverItems}
-    </ul>
-    </div>
-  )
+    return (
+      <div>
+      <h1>Selected Rivers</h1>
+      <ul className="col-md-4 list-group">
+        {riverItems}
+      </ul>
+      </div>
+    )
+  }
 }
 
 export default SelectedRivers;
-
-//

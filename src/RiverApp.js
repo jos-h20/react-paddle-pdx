@@ -85,17 +85,27 @@ class RiverApp extends Component {
   //   }
 
   componentDidMount () {
-    setInterval( () => {
-      axios.get('http://waterservices.usgs.gov/nwis/iv/?format=json&sites=14179000,14400000,14120000,14377100,14142500&parameterCd=00060&siteStatus=all')
-      .then((response) => {
-        console.log('response', response)
-        this.setState({rivers: response.data.value.timeSeries})
-      })
-      .catch((error) => {
-        console.error('axios error', error)
-      })
-    }, 900000);
-  }
+        const getData = axios.get('http://waterservices.usgs.gov/nwis/iv/?format=json&sites=14179000,14400000,14120000,14377100,14142500&parameterCd=00060&siteStatus=all')
+        .then((response) => {
+          console.log('response', response)
+          this.setState({rivers: response.data.value.timeSeries})
+        })
+        .catch((error) => {
+          console.error('axios error', error)
+        })
+        // setInterval(getData, 2000);
+        setInterval( () => {
+          axios.get('http://waterservices.usgs.gov/nwis/iv/?format=json&sites=14179000,14400000,14120000,14377100,14142500&parameterCd=00060&siteStatus=all')
+          .then((response) => {
+            console.log('response', response)
+            this.setState({rivers: response.data.value.timeSeries})
+          })
+          .catch((error) => {
+            console.error('axios error', error)
+          })
+        }, 900000);
+    }
+
 
   componentWillMount() {
     // this runs right before the App is rendered
@@ -111,7 +121,6 @@ class RiverApp extends Component {
     base.removeBinding(this.ref);
   }
 
-
   // addRiver(favoriteRiver) {
   //   //update our state
   //   const selectedRivers = {...this.state.selectedRivers};
@@ -123,16 +132,16 @@ class RiverApp extends Component {
   // }
 
 
-  addRiver(favoriteRiver) {
-    const riverNames = [];
-    const selectedRivers = this.state.selectedRivers;
-    selectedRivers.forEach(function (river) {
-      riverNames.push(river.name);
-    });
-    if (!riverNames.includes(favoriteRiver.name)) {
-      this.setState({ selectedRivers: this.state.selectedRivers.concat([favoriteRiver]) });
-    }
+addRiver(favoriteRiver) {
+  const riverNames = [];
+  const selectedRivers = this.state.selectedRivers;
+  selectedRivers.forEach(function (river) {
+    riverNames.push(river.name);
+  });
+  if (!riverNames.includes(favoriteRiver.name)) {
+    this.setState({ selectedRivers: this.state.selectedRivers.concat([favoriteRiver]) });
   }
+}
 
 removeRiver(i) {
   const selectedRivers = [...this.state.selectedRivers.slice(0, i), ...this.state.selectedRivers.slice(i + 1)];
@@ -150,16 +159,16 @@ removeRiver(i) {
   //   if(!this.state.uid) {
   //     return <div>{this.renderLogin()}</div>
   //   }
-    const rivers = this.state.rivers;
-    console.log(rivers, "front page!");
+
     return (
       <div className="App">
         <RiverList
           onRiverSelect={selectedRiver => this.setState({selectedRiver})}
           addRiver={this.addRiver}
+          getIds={this.getIds}
           rivers={this.state.rivers} />
         <RiverDetail river={this.state.selectedRiver} addRiver={this.addRiver}/>
-        <SelectedRivers rivers={this.state.selectedRivers} removeRiver={this.removeRiver}/>
+        <SelectedRivers rivers={this.state.selectedRivers} removeRiver={this.removeRiver} />
 
       </div>
 

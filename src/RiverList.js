@@ -10,7 +10,9 @@ RiverList = (props) => {
       <RiverListItem
         onRiverSelect={props.onRiverSelect}
         addRiver={props.addRiver}
+        getIds={props.getIds}
         key={river.name}
+        id={river.sourceInfo.siteCode[0].value}
         river={river} />
     );
   });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RiverListItem = ({river, onRiverSelect, addRiver}) => {
+const RiverListItem = ({river, id, onRiverSelect, addRiver, getIds}) => {
   // const river = props.river; this is the same as putting river as argument
   return (
     <li key={river.name} onClick={() => onRiverSelect(river)} className="list-group-item">
@@ -19,3 +19,4 @@ const RiverListItem = ({river, onRiverSelect, addRiver}) => {
 
 export default RiverListItem;
 // <h4>CFS: {apiRivers.values[0].value[0].value}</h4>
+// onClick={() => getIds()}
