@@ -10,20 +10,34 @@ RiverList = (props) => {
       <RiverListItem
         onRiverSelect={props.onRiverSelect}
         addRiver={props.addRiver}
-        getIds={props.getIds}
         key={river.name}
-        id={river.sourceInfo.siteCode[0].value}
+        id={river.id}
         river={river} />
     );
   });
+
+
   return (
     <div>
-    <h1>All Rivers</h1>
-    <ul className="col-md-4 list-group">
-      {riverItems}
-    </ul>
+      {props.displayRivers ? (
+        <div>
+          <button onClick={props.hideRivers}>Hide All Rivers</button>
+          <h1>All Rivers</h1>
+          <ul className="col-md-4 list-group">
+            {riverItems}
+          </ul>
+        </div>
+      ) : (
+        <div><button onClick={props.showRivers}>Show All Rivers</button></div>
+      )}
     </div>
   )
 }
 
 export default RiverList;
+
+
+// <h1>All Rivers</h1>
+// <ul className="col-md-4 list-group">
+//   {riverItems}
+// </ul>
