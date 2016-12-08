@@ -35,9 +35,3 @@ RiverList = (props) => {
 }
 
 export default RiverList;
-
-
-// <h1>All Rivers</h1>
-// <ul className="col-md-4 list-group">
-//   {riverItems}
-// </ul>

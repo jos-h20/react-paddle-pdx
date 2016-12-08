@@ -42,6 +42,17 @@ class RiverApp extends Component {
       });
     }
 
+    // componentDidMount() {
+    //   const riverIds = [];
+    //   const rivers = this.state.selectedRivers;
+    //   rivers.map((river) => {
+    //     riverIds.push(river.id);
+    //   });
+    //   const strRiverIds = riverIds.toString();
+    //   this.setState({ riverIds: strRiverIds });
+    //   console.log(strRiverIds, "sel river STRING");
+    // }
+
 
     authenticate(provider) {
       base.authWithOAuthPopup(provider, this.authHandler);
@@ -147,7 +158,9 @@ showRivers() {
           hideRivers={this.hideRivers}
           showRivers={this.showRivers}
           displayRivers={this.state.displayRivers}/>
+        { this.state.selectedRivers ?
         <SelectedRivers rivers={this.state.selectedRivers} removeRiver={this.removeRiver} />
+          : <P>....LOADING</P>}
         <RiverDetail river={this.state.selectedRiver} addRiver={this.addRiver}/>
 
       </div>
